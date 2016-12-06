@@ -7,7 +7,8 @@ from github import Github
 # TODO: Accept Project name and create new folder
 
 projectName = sys.argv[1]
-repoName = '{"name":"toets6"}'
+githubUserName = sys.argv[2]
+token = sys.argv[3]
 
 if not os.path.exists(projectName):
     os.makedirs(projectName)
@@ -39,5 +40,5 @@ time.sleep(1)
 subprocess.Popen(['git', 'add', '.'], stdout=subprocess.PIPE)
 subprocess.Popen(['git', 'commit', '-m','"Initial commit"'], stdout=subprocess.PIPE)
 subprocess.Popen(['git', 'commit', '-m','"Initial commit"'], stdout=subprocess.PIPE)
-data = '{"name":"REPO3"}'
-requests.post('https://api.github.com/user/repos', data=data, auth=('garylomberg', '3a5a93fd09e731058e5d464f524dda4d71c57a96'))
+data = '{"name":"{}"}'.format(projectName)
+requests.post('https://api.github.com/user/repos', data=data, auth=('{}'.format(githubUserName), '{}'.format(token)))
