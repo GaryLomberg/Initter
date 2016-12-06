@@ -7,7 +7,8 @@ from github import Github
 # TODO: Accept Project name and create new folder
 
 projectName = sys.argv[1]
-repoName = '{"name":"toets6"}'
+githubUserName = sys.argv[2]
+token = str(sys.argv[3])
 
 if not os.path.exists(projectName):
     os.makedirs(projectName)
@@ -29,7 +30,7 @@ projectFile.close()
 # TODO: Create README.md
 
 readme = open('README.md', 'w+')
-readme.write("Project name: {} \n".format(projectName))
+readme.write('Project name: {} \n'.format(projectName))
 readme.close()
 
 # TODO: Run git init
@@ -38,6 +39,11 @@ subprocess.Popen(['git', 'init'], stdout=subprocess.PIPE)
 time.sleep(1)
 subprocess.Popen(['git', 'add', '.'], stdout=subprocess.PIPE)
 subprocess.Popen(['git', 'commit', '-m','"Initial commit"'], stdout=subprocess.PIPE)
-subprocess.Popen(['git', 'commit', '-m','"Initial commit"'], stdout=subprocess.PIPE)
-data = '{"name":"REPO3"}'
-requests.post('https://api.github.com/user/repos', data=data, auth=('garylomberg', '3a5a93fd09e731058e5d464f524dda4d71c57a96'))
+data = '{"name":"' + projectName + '"}'
+print(data, token, githubUserName)
+createRepo = requests.post('https://api.github.com/user/repos', data=data, auth=(githubUserName, token))
+createRepo.raise_for_status()
+
+# git remote add origin git@github.com:GaryLomberg/Dsdas.git
+# git push -u origin master
+
