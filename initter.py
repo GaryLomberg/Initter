@@ -10,6 +10,7 @@ projectName = sys.argv[1]
 githubUserName = sys.argv[2]
 token = str(sys.argv[3])
 
+
 if not os.path.exists(projectName):
     os.makedirs(projectName)
 else:
